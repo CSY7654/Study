@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Units;
-public class Monster : Unit
+public class Monster : Unit // Unit스크립트에서 상
 {
     public Rigidbody2D target;
     SpriteRenderer spriter;
