@@ -7,40 +7,40 @@ public class Player : Unit
 {
     bool isDead = false;
 
-    Vector2 inputVec;       // º¤ÅÍ¼±¾ğ
+    Vector2 inputVec;       // ë²¡í„°ì„ ì–¸
 
-    SpriteRenderer spriteRenderer;      // ½ºÇÁ¶óÀÌÆ®¼±¾ğ
-    Animator anim;      // ¿¡´Ï¸ŞÀÌ¼Ç¼±¾ğ
+    SpriteRenderer spriteRenderer;      // ìŠ¤í”„ë¼ì´íŠ¸ì„ ì–¸
+    Animator anim;      // ì—ë‹ˆë©”ì´ì…˜ì„ ì–¸
 
-    Rigidbody2D rigid;      // ¸®Áöµå¹Ùµğ¼±¾ğ
+    Rigidbody2D rigid;      // ë¦¬ì§€ë“œë°”ë””ì„ ì–¸
 
     public void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();        // ½ºÇÁ¶óÀÌÆ® ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
-        anim = GetComponent<Animator>();        // ¿¡´Ï¸ŞÀÌ¼Ç ÄÄÆ÷³ÍÆ® °¡Á®¿À±â 
-        rigid = GetComponent<Rigidbody2D>();        // ¸®Áöµå¹Ùµğ ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        spriteRenderer = GetComponent<SpriteRenderer>();        // ìŠ¤í”„ë¼ì´íŠ¸ ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
+        anim = GetComponent<Animator>();        // ì—ë‹ˆë©”ì´ì…˜ ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸° 
+        rigid = GetComponent<Rigidbody2D>();        // ë¦¬ì§€ë“œë°”ë”” ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
     }
 
     public void Update()
     {
-        inputVec.x = Input.GetAxisRaw("Horizontal");        // XÃà º¤ÅÍ ºÎµå·¯¿î ¿òÁ÷ÀÓ(GetAxisRaw)
-        inputVec.y = Input.GetAxisRaw("Vertical");      // YÃà º¤ÅÍ ºÎµå·¯¿î ¿òÁ÷ÀÓ(GetAxisRaw)
+        inputVec.x = Input.GetAxisRaw("Horizontal");        // Xì¶• ë²¡í„° ë¶€ë“œëŸ¬ìš´ ì›€ì§ì„(GetAxisRaw)
+        inputVec.y = Input.GetAxisRaw("Vertical");      // Yì¶• ë²¡í„° ë¶€ë“œëŸ¬ìš´ ì›€ì§ì„(GetAxisRaw)
 
     }
 
     public void FixedUpdate()
     {
-        Vector2 nextVec = inputVec.normalized * Speed * Time.fixedDeltaTime;        // ´ÙÀ½À¸·Î ³ª¾Æ°¡¾ßÇÒ ¹æÇâ    
-        rigid.MovePosition(rigid.position + nextVec);       // À§Ä¡ ÀÌµ¿ ¹æ½Ä
+        Vector2 nextVec = inputVec.normalized * Speed * Time.fixedDeltaTime;        // ë‹¤ìŒìœ¼ë¡œ ë‚˜ì•„ê°€ì•¼í•  ë°©í–¥    
+        rigid.MovePosition(rigid.position + nextVec);       // ìœ„ì¹˜ ì´ë™ ë°©ì‹
     }
 
     public void LateUpdate()
     {
-        if (Input.GetKey("d"))      // ¿À¸¥¦U(D)ÀÌµ¿ XÃà ½ºÇÁ¶óÀÌÆ®ÇÃ¸³ È°¼ºÈ­
+        if (Input.GetKey("d"))      // ì˜¤ë¥¸U(D)ì´ë™ Xì¶• ìŠ¤í”„ë¼ì´íŠ¸í”Œë¦½ í™œì„±í™”
         {
             spriteRenderer.flipX = true;
         }
-        else if (Input.GetKey("a"))     // ¿ŞÂÊ(A)ÀÌµ¿ XÃà ½ºÇÁ¶óÀÌÆ®ÇÃ¸³ ÇØÁ¦
+        else if (Input.GetKey("a"))     // ì™¼ìª½(A)ì´ë™ Xì¶• ìŠ¤í”„ë¼ì´íŠ¸í”Œë¦½ í•´ì œ
         {
             spriteRenderer.flipX = false;
         }
@@ -48,17 +48,17 @@ public class Player : Unit
         anim.SetFloat("speed", inputVec.magnitude);    
     }
 
-    private  void OnCollisionEnter2D(Collision2D collision)
+    private  void OnCollisionEnter2D(Collision2D collision) // ì¶©ëŒì‹œ ë°ë¯¸ì§€ë¥¼ ì…ëŠ” ì½”ë“œ
     {
-        if(collision.collider.tag == "Enemy" && !isDamage)
+        if(collision.collider.tag == "Enemy" && !isDamage) // ë§Œì•½ ì—ë„ˆë¯¸ íƒœê·¸ë¥¼ ê°€ì§€ê³  isDamageê°€ falseì¼ ê²½ìš°
         {
-            isDamage = true;
-            float enemyAttack = collision.gameObject.GetComponent<Monster>().Damage;
-            currentHp -= enemyAttack;
-            if(currentHp <= 0)
+            isDamage = true; // isDamageë¥¼ trueë¡œ ë³€í™˜
+            float enemyAttack = collision.gameObject.GetComponent<Monster>().Damage; // ëª¬ìŠ¤í„°ê°€ ê°€ì§€ê³  ìˆëŠ” ë°ë¯¸ì§€ë¥¼ ê°€ì ¸ì˜´
+            currentHp -= enemyAttack; // ì²´ë ¥ - ëª¬ìŠ¤í„°ì˜ ë°ë¯¸ì§€ 
+            if(currentHp <= 0) // ì²´ë ¥ì´ 0ì´í•˜ì¼ ë•Œ
             {
                 isDead = true;
-                gameObject.SetActive(false);
+                gameObject.SetActive(false); // í”Œë ˆì´ì–´ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™” 
             }
         }
     }
