@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Units;
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : Unit
+public class Player : Unit  //unit스크립트에서 상속
 {
     bool isDead = false;
 
